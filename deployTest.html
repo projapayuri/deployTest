@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- A-FrameとAR.jsのライブラリを読み込む (第3回講義内容) -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  </head>
+  <body style="margin: 0px; overflow: hidden;">
+    <!-- ARシーンの定義 -->
+    <a-scene embedded arjs>
+      <!-- Hiroマーカーを検知した時の処理 (第4回講義内容) -->
+      <a-marker preset="hiro">
+        <!-- 青い箱を表示 (第4回・5回講義内容) -->
+        <a-box position="0 0.5 0" material="color: blue; opacity: 0.8;"></a-box>
+      </a-marker>
+      <!-- カメラの設定 -->
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
