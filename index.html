@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>06 課題演習サンプル</title>
+  <title>05 マーカーベースAR</title>
 
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
@@ -17,56 +17,9 @@
 </head>
 <body>
   <a-scene embedded arjs>
+    <!-- Hiroマーカーの上に表示 -->
     <a-marker preset="hiro">
-      <!-- 土台 -->
-      <a-box
-        position="0 0.1 0"
-        width="2"
-        height="0.2"
-        depth="2"
-        color="#8BC34A">
-      </a-box>
-
-      <!-- 家っぽい箱 -->
-      <a-box
-        position="-0.5 0.5 0"
-        width="0.6"
-        height="0.6"
-        depth="0.6"
-        color="#FFCC80">
-      </a-box>
-
-      <!-- 屋根っぽい三角形の代わりに回転した箱 -->
-      <a-box
-        position="-0.5 0.9 0"
-        width="0.7"
-        height="0.2"
-        depth="0.7"
-        rotation="0 0 45"
-        color="#E57373">
-      </a-box>
-
-      <!-- 木の幹jj -->
-      <a-cylinder
-        position="0.6 0.35 0.2"
-        radius="0.08"
-        height="0.5"
-        color="#8D6E63">
-      </a-cylinder>
-
-      <!-- 木の葉 -->
-      <a-sphere
-        position="0.6 0.8 0.2"
-        radius="0.25"
-        color="#4CAF50">
-      </a-sphere>
-
-      <!-- 飾り -->
-      <a-sphere
-        position="0 0.3 -0.6"
-        radius="0.15"
-        color="#29B6F6">
-      </a-sphere>
+      <a-box position="0 0.5 0" color="#4CC3D9"></a-box>
     </a-marker>
 
     <a-entity camera></a-entity>
