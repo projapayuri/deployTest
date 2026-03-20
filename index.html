@@ -2,211 +2,74 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>AR Monster HP Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>06 課題演習サンプル</title>
 
-  <!-- A-Frame -->
-  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-
-  <!-- AR.js for A-Frame -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
   <style>
-    html, body {
+    body {
       margin: 0;
       overflow: hidden;
-      font-family: sans-serif;
-      background: #000;
-    }
-
-    .hud {
-      position: fixed;
-      left: 12px;
-      right: 12px;
-      top: 12px;
-      z-index: 10;
-      color: white;
-      background: rgba(0,0,0,0.55);
-      padding: 12px 14px;
-      border-radius: 12px;
-      line-height: 1.5;
-      font-size: 14px;
-      backdrop-filter: blur(6px);
-    }
-
-    .hud strong {
-      font-size: 16px;
     }
   </style>
 </head>
 <body>
-  <div class="hud">
-    <strong>ARモンスターデモ</strong><br />
-    Hiroマーカーを映す → モンスター出現<br />
-    モンスター本体をタップ → HP -10
-  </div>
+  <a-scene embedded arjs>
+    <a-marker preset="hiro">
+      <!-- 土台 -->
+      <a-box
+        position="0 0.1 0"
+        width="2"
+        height="0.2"
+        depth="2"
+        color="#8BC34A">
+      </a-box>
 
-  <a-scene
-    embedded
-    vr-mode-ui="enabled: false"
-    renderer="logarithmicDepthBuffer: true; colorManagement: true;"
-    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-    cursor="rayOrigin: mouse"
-    raycaster="objects: .clickable"
-  >
-    <!-- Hiro marker -->
-    <a-marker preset="hiro" id="hiroMarker">
-      <!-- モンスター全体 -->
-      <a-entity id="monsterRoot" position="0 0 0">
+      <!-- 家っぽい箱 -->
+      <a-box
+        position="-0.5 0.5 0"
+        width="0.6"
+        height="0.6"
+        depth="0.6"
+        color="#FFCC80">
+      </a-box>
 
-        <!-- モンスター本体（これをタップ） -->
-        <a-sphere
-          id="monsterBody"
-          class="clickable"
-          position="0 0.6 0"
-          radius="0.35"
-          color="#4cc9f0"
-          shadow
-        ></a-sphere>
+      <!-- 屋根っぽい三角形の代わりに回転した箱 -->
+      <a-box
+        position="-0.5 0.9 0"
+        width="0.7"
+        height="0.2"
+        depth="0.7"
+        rotation="0 0 45"
+        color="#E57373">
+      </a-box>
 
-        <!-- 目 -->
-        <a-sphere position="-0.12 0.70 0.30" radius="0.04" color="#111"></a-sphere>
-        <a-sphere position="0.12 0.70 0.30" radius="0.04" color="#111"></a-sphere>
+      <!-- 木の幹jj -->
+      <a-cylinder
+        position="0.6 0.35 0.2"
+        radius="0.08"
+        height="0.5"
+        color="#8D6E63">
+      </a-cylinder>
 
-        <!-- 角 -->
-        <a-cone position="-0.18 1.0 0" radius-bottom="0.05" radius-top="0.01" height="0.18" color="#ffd166"></a-cone>
-        <a-cone position="0.18 1.0 0" radius-bottom="0.05" radius-top="0.01" height="0.18" color="#ffd166"></a-cone>
+      <!-- 木の葉 -->
+      <a-sphere
+        position="0.6 0.8 0.2"
+        radius="0.25"
+        color="#4CAF50">
+      </a-sphere>
 
-        <!-- 土台 -->
-        <a-cylinder position="0 0.15 0" radius="0.45" height="0.08" color="#6c757d"></a-cylinder>
-
-        <!-- 名前 -->
-        <a-text
-          id="monsterName"
-          value="Slime"
-          position="-0.42 1.35 0"
-          rotation="-90 0 0"
-          color="#ffffff"
-          width="1.6"
-          align="left"
-        ></a-text>
-
-        <!-- HP表示 -->
-        <a-text
-          id="hpText"
-          value="HP: 100 / 100"
-          position="-0.42 1.15 0"
-          rotation="-90 0 0"
-          color="#ffffff"
-          width="1.8"
-          align="left"
-        ></a-text>
-
-        <!-- HPバー背景 -->
-        <a-plane
-          position="0 1.02 0"
-          rotation="-90 0 0"
-          width="0.84"
-          height="0.10"
-          color="#333"
-        ></a-plane>
-
-        <!-- HPバー本体 -->
-        <a-plane
-          id="hpBar"
-          position="0 1.021 0.001"
-          rotation="-90 0 0"
-          width="0.80"
-          height="0.07"
-          color="#2ecc71"
-        ></a-plane>
-
-        <!-- 倒れた表示 -->
-        <a-text
-          id="deadText"
-          value=""
-          position="-0.28 0.45 0"
-          rotation="-90 0 0"
-          color="#ff6b6b"
-          width="1.4"
-          align="left"
-        ></a-text>
-      </a-entity>
+      <!-- 飾り -->
+      <a-sphere
+        position="0 0.3 -0.6"
+        radius="0.15"
+        color="#29B6F6">
+      </a-sphere>
     </a-marker>
 
-    <!-- Camera -->
     <a-entity camera></a-entity>
   </a-scene>
-
-  <script>
-    class Monster {
-      constructor(name, maxHp) {
-        this.name = name;
-        this.maxHp = maxHp;
-        this.hp = maxHp;
-      }
-
-      damage(amount) {
-        this.hp = Math.max(0, this.hp - amount);
-      }
-
-      heal(amount) {
-        this.hp = Math.min(this.maxHp, this.hp + amount);
-      }
-
-      get isDead() {
-        return this.hp <= 0;
-      }
-
-      get hpRate() {
-        return this.hp / this.maxHp;
-      }
-    }
-
-    const monster = new Monster("Slime", 100);
-
-    const bodyEl = document.getElementById("monsterBody");
-    const hpTextEl = document.getElementById("hpText");
-    const hpBarEl = document.getElementById("hpBar");
-    const deadTextEl = document.getElementById("deadText");
-    const nameEl = document.getElementById("monsterName");
-
-    function updateView() {
-      nameEl.setAttribute("value", monster.name);
-      hpTextEl.setAttribute("value", `HP: ${monster.hp} / ${monster.maxHp}`);
-
-      const barWidth = 0.8 * monster.hpRate;
-      hpBarEl.setAttribute("width", Math.max(barWidth, 0.001));
-
-      // 幅が変わると中心がずれるので、左端を固定するため位置もずらす
-      const leftEdge = -0.4;
-      const centerX = leftEdge + barWidth / 2;
-      hpBarEl.setAttribute("position", `${centerX} 1.021 0.001`);
-
-      if (monster.hpRate > 0.6) {
-        hpBarEl.setAttribute("color", "#2ecc71");
-      } else if (monster.hpRate > 0.3) {
-        hpBarEl.setAttribute("color", "#f1c40f");
-      } else {
-        hpBarEl.setAttribute("color", "#e74c3c");
-      }
-
-      if (monster.isDead) {
-        bodyEl.setAttribute("color", "#777");
-        deadTextEl.setAttribute("value", "たおれた...");
-      } else {
-        bodyEl.setAttribute("color", "#4cc9f0");
-        deadTextEl.setAttribute("value", "");
-      }
-    }
-
-    bodyEl.addEventListener("click", () => {
-      if (monster.isDead) return;
-      monster.damage(10);
-      updateView();
-    });
-
-    updateView();
-  </script>
 </body>
 </html>
